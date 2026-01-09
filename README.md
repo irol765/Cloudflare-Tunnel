@@ -38,7 +38,7 @@
 在服务器终端执行以下命令：
 
 ```bash
-wget -N [https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_cf_xray.sh](https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_cf_xray.sh) && chmod +x install_cf_xray.sh && ./install_cf_xray.sh
+wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_cf_xray.sh && chmod +x install_cf_xray.sh && ./install_cf_xray.sh
 ```
 
 ### 3. 根据提示输入信息
