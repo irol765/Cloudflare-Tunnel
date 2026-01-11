@@ -155,7 +155,7 @@ fi
 [[ -z "$IPV6_ADDR" || "$IPV6_ADDR" == *"html"* ]] && IPV6_ADDR="[你的IPv6地址]"
 
 # 8. 生成分享链接
-LINK="vless://${UUID}@${IPV6_ADDR}:${PORT}?security=reality&encryption=none&pbk=${PUBLIC_KEY}&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=${DEST_DOMAIN}&sid=1688#IPv6-Reality"
+LINK="vless://${UUID}@[${IPV6_ADDR}]:${PORT}?security=reality&encryption=none&pbk=${PUBLIC_KEY}&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=${DEST_DOMAIN}&sid=1688#IPv6-Reality"
 
 clear
 echo -e "${SKYBLUE}======================================================${PLAIN}"
