@@ -37,15 +37,17 @@ read -e -p "请输入伪装域名 (默认 www.apple.com): " DEST_DOMAIN
 echo ""
 echo -e "${YELLOW}正在生成密钥和 UUID...${PLAIN}"
 
-# 临时启动一个容器来生成 ID 和 Key，确保无需在宿主机安装 xray
-TEMP_INFO=$(docker run --rm teddysun/xray sh -c "echo UUID: \$(xray uuid) && xray x25519")
+# 修复点：添加 --entrypoint /bin/sh 强制覆盖镜像入口点，防止命令执行失败
+TEMP_INFO=$(docker run --rm --entrypoint /bin/sh teddysun/xray -c "echo UUID: \$(xray uuid) && xray x25519")
 
 UUID=$(echo "$TEMP_INFO" | grep "UUID:" | awk '{print $2}')
 PRIVATE_KEY=$(echo "$TEMP_INFO" | grep "Private key:" | awk '{print $3}')
 PUBLIC_KEY=$(echo "$TEMP_INFO" | grep "Public key:" | awk '{print $3}')
 
+# 调试信息：如果为空，打印出来看看到底生成了啥
 if [[ -z "$UUID" || -z "$PRIVATE_KEY" ]]; then
-    echo -e "${RED}错误：无法生成 UUID 或密钥，请检查 Docker 是否正常。${PLAIN}"
+    echo -e "${RED}错误：无法生成 UUID 或密钥。${PLAIN}"
+    echo -e "Docker 返回内容: $TEMP_INFO"
     exit 1
 fi
 
