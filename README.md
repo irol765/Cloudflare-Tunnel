@@ -35,8 +35,6 @@
 wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel/main/install_ipv6_reality.sh && chmod +x install_ipv6_reality.sh && ./install_ipv6_reality.sh
 ```
 
-*(注：请确保将链接中的 `irol765/Cloudflare-Tunnel-` 替换为你实际的 GitHub 用户名和仓库名)*
-
 ### 配置说明
 * **端口**：脚本默认使用 `8443`，完美避开 443 (可与 Nginx/FRP 共存)。
 * **伪装**：默认伪装为 `www.apple.com`。
