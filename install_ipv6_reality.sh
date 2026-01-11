@@ -63,7 +63,6 @@ unzip -q /tmp/xray_temp_gen/xray.zip -d /tmp/xray_temp_gen
 chmod +x /tmp/xray_temp_gen/xray
 
 # 启动容器：使用 teddysun 镜像（绕过看门狗），但挂载 /tmp/xray_temp_gen/xray 进去执行
-# 这里的逻辑是：-v 挂载文件，--entrypoint 强制覆盖入口点运行我们挂载的文件
 TEMP_INFO=$(docker run --rm \
     -v /tmp/xray_temp_gen/xray:/xray_bin \
     --entrypoint /xray_bin \
@@ -136,19 +135,24 @@ echo ""
 echo -e "${YELLOW}正在启动容器...${PLAIN}"
 docker rm -f $CONTAINER_NAME &> /dev/null
 
-# 正常运行时依然使用 teddysun 镜像，因为它本身是好的，只是生成密钥的命令有问题
+# 正常运行时依然使用 teddysun 镜像
 docker run -d --name $CONTAINER_NAME \
     --restart unless-stopped \
     --network host \
     -v $WORK_DIR/config.json:/etc/xray/config.json \
     teddysun/xray > /dev/null
 
-# 7. 获取 IPv6 地址
-IPV6_ADDR=$(curl -s6m 5 https://ip.sb)
+# 7. 获取 IPv6 地址 (优先读取网卡，失败再尝试 curl)
+echo -e "${YELLOW}正在获取 IPv6 地址...${PLAIN}"
+IPV6_ADDR=$(ip -6 addr show | grep global | grep -v 'fd00' | grep -v 'fe80' | awk '{print $2}' | cut -d/ -f1 | head -n 1)
+
 if [[ -z "$IPV6_ADDR" ]]; then
-    IPV6_ADDR=$(ip -6 addr show | grep global | grep -v 'fd00' | awk '{print $2}' | cut -d/ -f1 | head -n 1)
+    # 如果网卡没读到，再尝试 curl
+    IPV6_ADDR=$(curl -s6m 5 https://ifconfig.co)
 fi
-[[ -z "$IPV6_ADDR" ]] && IPV6_ADDR="[你的IPv6地址]"
+
+# 再次兜底
+[[ -z "$IPV6_ADDR" || "$IPV6_ADDR" == *"html"* ]] && IPV6_ADDR="[你的IPv6地址]"
 
 # 8. 生成分享链接
 LINK="vless://${UUID}@${IPV6_ADDR}:${PORT}?security=reality&encryption=none&pbk=${PUBLIC_KEY}&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=${DEST_DOMAIN}&sid=1688#IPv6-Reality"
@@ -166,6 +170,6 @@ echo -e "${YELLOW}🚀 VLESS 链接 (直接复制导入):${PLAIN}"
 echo -e "${SKYBLUE}${LINK}${PLAIN}"
 echo -e "------------------------------------------------------"
 echo -e "${YELLOW}⚠️ 注意：${PLAIN}"
-echo -e "1. 客户端地址栏必须是 IPv6 地址。"
-echo -e "2. 本次部署使用了临时挂载官方核心的方法，成功生成了唯一的安全密钥！"
+echo -e "1. 如果链接里的地址依然不正确，请手动将 '[你的IPv6地址]' 替换为 VPS 的真实 IPv6。"
+echo -e "2. 请确保本地网络已开启 IPv6。"
 echo ""
