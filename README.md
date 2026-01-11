@@ -31,9 +31,9 @@
 利用 Xray 的 VLESS-Vision-Reality 协议，配合 Docker 的 Host 模式，直接利用宿主机的 IPv6 通道，实现物理直连的极致速度。
 
 ### 一键安装命令
-\bash
+```bash
 wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_ipv6_reality.sh && chmod +x install_ipv6_reality.sh && ./install_ipv6_reality.sh
-\
+```
 
 *(注：请确保将链接中的 `irol765/Cloudflare-Tunnel-` 替换为你实际的 GitHub 用户名和仓库名)*
 
@@ -52,9 +52,9 @@ wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/instal
 登录 [Cloudflare Zero Trust](https://one.dash.cloudflare.com/) -> `Networks` -> `Tunnels` -> `Create a tunnel` -> 复制 `--token` 后的字符串。
 
 ### 2. 一键安装命令
-\bash
+```bash
 wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_cf_xray.sh && chmod +x install_cf_xray.sh && ./install_cf_xray.sh
-\
+```
 
 ### 3. 后续配置 (Public Hostname)
 脚本运行后，去 Cloudflare Tunnel 后台添加 Public Hostname：
