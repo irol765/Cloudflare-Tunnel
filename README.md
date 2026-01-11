@@ -32,7 +32,7 @@
 
 ### 一键安装命令
 ```bash
-wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_ipv6_reality.sh && chmod +x install_ipv6_reality.sh && ./install_ipv6_reality.sh
+wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel/main/install_ipv6_reality.sh && chmod +x install_ipv6_reality.sh && ./install_ipv6_reality.sh
 ```
 
 *(注：请确保将链接中的 `irol765/Cloudflare-Tunnel-` 替换为你实际的 GitHub 用户名和仓库名)*
@@ -53,7 +53,7 @@ wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/instal
 
 ### 2. 一键安装命令
 ```bash
-wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel-/main/install_cf_xray.sh && chmod +x install_cf_xray.sh && ./install_cf_xray.sh
+wget -N https://raw.githubusercontent.com/irol765/Cloudflare-Tunnel/main/install_cf_xray.sh && chmod +x install_cf_xray.sh && ./install_cf_xray.sh
 ```
 
 ### 3. 后续配置 (Public Hostname)
