@@ -1,4 +1,3 @@
-cat > install_ipv6_reality.sh << 'EOF'
 #!/bin/bash
 
 # 定义颜色
@@ -138,6 +137,3 @@ echo -e "1. 客户端地址栏必须是 IPv6 地址 (如果是 v2rayN，直接�
 echo -e "2. 确保你的本地网络已开启 IPv6 (test-ipv6.com 10/10)。"
 echo -e "3. 如果链接里的 IP 不对，请手动修改为你在搬瓦工后台看到的 IPv6 地址。"
 echo ""
-EOF
-
-chmod +x install_ipv6_reality.sh && ./install_ipv6_reality.sh
